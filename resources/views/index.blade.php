@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <img src="{{ asset('images/brain.png') }}" class="mx-auto hover:scale-105 transition-transform duration-200 w-250 h-250">
-        <h2 class="mb-4 text-4xl font-bold tracking-tight leading-none md:text-5xl lg:text-6xl dark:text-white hover:scale-105 transition-transform duration-200 max-w-fit mx-auto">
+        <h2 class="mb-4 text-4xl font-bold tracking-tight leading-none md:text-5xl lg:text-6xl dark:text-white hover:scale-105 transition-transform duration-200 max-w-fit mx-auto text-center">
             {{ __('Welcome to Mindshare!') }}
         </h2>
         <p class="mt-8 text-pretty text-lg font-medium text-gray-500 sm:text-xl/8 text-center">Your hub for knowledge and inspiration.</p>
