@@ -5,23 +5,16 @@
         </h2>
     </x-slot>
 
-    <table class="table-auto border-collapse w-full text-left">
-        <thead>
-            <tr>
-                <th class="border px-4 py-2">Title</th>
-                <th class="border px-4 py-2">Excerpt</th>
-            </tr>
-        </thead>
-        <tbody>
-        @foreach ($blogPosts as $blogPost)
-            <tr>
-                <td class="border px-4 py-2">
-                    <a href="{{ route('blog.show', $blogPost) }}">{{ $blogPost->title }}</a>
-                </td>
-                <td class="border px-4 py-2">{{ $blogPost->excerpt }}</td>
-            </tr>
-        @endforeach
-        </tbody>
-    </table>
+    <div class="container mx-auto mt-10">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            @foreach ($blogPosts as $blogPost)
+                <div class="bg-white shadow-md rounded-lg p-4">
+                    <h2 class="text-lg font-bold mb-2">{{ $blogPost->title }}</h2>
+                    <p class="text-gray-700">{{ $blogPost->excerpt }}</p>
+                    <a href="{{ route('blog.show', $blogPost) }}" class="text-blue-500 hover:underline">Read More</a>
+                </div>
+            @endforeach
+        </div>
+    </div>
 
 </x-app-layout>
