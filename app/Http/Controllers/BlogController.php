@@ -11,7 +11,7 @@ class BlogController extends Controller
     {
         $blogPosts = BlogPost::all(); // Fetch all blog posts
     
-        return view('blog.index', compact('blogPosts')); // Pass the blog posts to the view
+        return view('dashboard', compact('blogPosts')); // Pass the blog posts to the view
     }
 
     public function show(BlogPost $blogPost)

@@ -17,8 +17,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::group(['prefix' => 'blog'], function () {
-    Route::get('/', [BlogController::class, 'index'])->name('blog.index');
+Route::controller(BlogController::class) -> group(function () {
+    Route::get('/dashboard', [BlogController::class, 'index'])->name('dashboard');
     Route::get('/{blogPost}', [BlogController::class, 'show'])->name('blog.show');
 });
 
