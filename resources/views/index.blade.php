@@ -5,7 +5,10 @@
             {{ __('Welcome to Mindshare!') }}
         </h2>
         <p class="mt-8 text-pretty text-lg font-medium text-gray-500 sm:text-xl/8 text-center">Your hub for knowledge and inspiration.</p>
-        <div class="mt-10 flex items-center justify-center gap-x-6"><a href="{{ route('register') }}" class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Get started</a><a href="#" class="text-sm/6 font-semibold text-gray-900 dark:text-white">Learn more <span aria-hidden="true">→</span></a></div>
+        <div class="mt-10 flex items-center justify-center gap-x-6">
+            <a href="{{ route('register') }}" class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-lg font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Get started</a>
+            <a href="#" class="text-lg font-semibold text-gray-900 dark:text-white">Learn more <span aria-hidden="true">→</span></a>
+        </div>
     </x-slot>
 
     <div class="container mx-auto py-12 space-y-10 flex flex-col items-center text-center">
