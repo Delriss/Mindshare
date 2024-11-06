@@ -61,9 +61,18 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 ">
             @foreach ($blogPosts as $blogPost)
                 <div class="bg-white dark:bg-gray-800 dark:text-white shadow-md rounded-lg p-4 flex flex-col h-full">
+                    <h2 class="text-2xl tracking-tight leading-none font-bold mb-1">{{ $blogPost->title }}</h2>
+                    <hr class="w-full border-gray-200 dark:border-gray-700 my-2" />
+                    <div class="flex flex-wrap">
+                        <x-blog-tag tag="Test 1" />
+                        <x-blog-tag tag="Test 2" />
+                        <x-blog-tag tag="Test 3" />
+                        <x-blog-tag tag="Test 4" />
+                        <x-blog-tag tag="Test 5" />
+                        <x-blog-tag tag="Test 6" />
+                    </div>
+                    <hr class="w-full border-gray-200 dark:border-gray-700 my-2" />
                     <div class="flex-grow">
-                        <h2 class="text-2xl tracking-tight leading-none font-bold mb-2">{{ $blogPost->title }}</h2>
-                        <hr class="w-full border-gray-200 dark:border-gray-700 my-4" />
                         <p class="text-gray-700 dark:text-gray-400 mb-4">{{ $blogPost->excerpt }}</p>
                     </div>
                     <hr class="w-full border-gray-200 dark:border-gray-700 my-4" />
