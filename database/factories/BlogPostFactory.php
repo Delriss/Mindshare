@@ -20,7 +20,7 @@ class BlogPostFactory extends Factory
         return [
             'title' => fake()->sentence(),
             'content' => fake()->paragraph(5),  
-
+            
             'excerpt' => fake()->paragraph(2),
         ];
     }
