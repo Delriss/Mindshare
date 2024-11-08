@@ -9,9 +9,10 @@ class BlogController extends Controller
 {
     public function index()
     {
-        $blogPosts = BlogPost::all(); // Fetch all blog posts
-    
-        return view('dashboard', compact('blogPosts')); // Pass the blog posts to the view
+        $blogPosts = BlogPost::with('tags')->paginate(10); // Fetch all blog posts
+        return view('dashboard')->with([
+            'blogPosts' => $blogPosts,
+        ]); // Pass the blog posts to the view
     }
 
     public function show(BlogPost $blogPost)
