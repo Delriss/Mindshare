@@ -1,1 +1,1 @@
-<span class="inline-block bg-blue-200 rounded-full px-3 py-1 text-xs font-semibold text-gray-700 mr-1">{{ $tag }}</span>
+<span class="inline-block bg-blue-200 rounded-full px-3 py-1 text-xs font-semibold text-gray-700 m-0.5">{{ $tag }}</span>
