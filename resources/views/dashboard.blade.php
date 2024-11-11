@@ -62,10 +62,15 @@
             @foreach ($blogPosts as $blogPost)
             <div class="bg-white dark:bg-gray-800 dark:text-white shadow-md rounded-lg p-4 flex flex-col h-full">
                 <h2 class="text-2xl tracking-tight leading-none font-bold mb-1">{{ $blogPost->title }}</h2>
+                @if($blogPost->user)
+                <p>Created by: {{ $blogPost->user->name }}</p>
+                @else
+                <p>Created by: Unknown</p>
+                @endif
                 <hr class="w-full border-gray-200 dark:border-gray-700 my-2" />
                 <div class="flex flex-wrap">
                     @foreach ($blogPost->tags as $tag)
-                    <x-blog-tag tag="{{ $tag->title }}" />
+                    <x-blog-tag tag="{{__($tag->title)}}" />
                     @endforeach
                 </div>
                 <hr class="w-full border-gray-200 dark:border-gray-700 my-2" />
@@ -90,7 +95,7 @@
         <div class="container mx-auto p-3">
             {{$blogPosts->links()}}
         </div>
-        
+
     </div>
 
 </x-app-layout>

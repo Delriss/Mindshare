@@ -57,6 +57,7 @@ class TagFactory extends Factory
             'Science',
             'History',
             'Philosophy',
+            'Photography',
             'Religion',
             'Art',
             'Literature',
