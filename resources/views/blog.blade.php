@@ -1,6 +1,10 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="grow">
+        <div class="flex items-center justify-between">
+            <button onclick="window.history.back()"
+                class="text-gray-800 dark:text-gray-200 font-semibold text-xl py-2 px-4 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                ← Back
+            </button>
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 {{ __($blogPost->title) }}
             </h2>
@@ -9,10 +13,10 @@
 
     <div class="container mx-auto mt-5 p-3">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
-            
+
             <!-- Sidebar Section for Author Info and Meta Data (Appears first on small screens) -->
             <div class="md:order-2 md:col-span-1 space-y-4">
-                
+
                 <!-- Author Information and Profile Picture -->
                 <div class="bg-white dark:bg-gray-800 dark:text-white shadow-md rounded-lg p-4">
                     <h2 class="text-xl font-semibold">Author</h2>
@@ -25,7 +29,7 @@
                         </div>
                     </div>
                 </div>
-    
+
                 <!-- Meta Information Section -->
                 <div class="bg-white dark:bg-gray-800 dark:text-white shadow-md rounded-lg p-4">
                     <div class="flex flex-wrap">
@@ -35,9 +39,11 @@
                     </div>
                     <hr class="w-full border-gray-200 dark:border-gray-700 my-4" />
                     <p><strong>Created:</strong> <span
-                            class="text-gray-600 dark:text-gray-400">{{ $blogPost->created_at }}</span></p>
+                            class="text-gray-600 dark:text-gray-400">{{ $blogPost->created_at->diffForHumans() }}</span>
+                    </p>
                     <p><strong>Updated:</strong> <span
-                            class="text-gray-600 dark:text-gray-400">{{ $blogPost->updated_at }}</span></p>
+                            class="text-gray-600 dark:text-gray-400">{{ $blogPost->updated_at->diffForHumans() }}</span>
+                    </p>
                 </div>
             </div>
 
@@ -48,7 +54,7 @@
                     {!! nl2br(e($blogPost->content)) !!}
                 </div>
             </div>
-    
+
         </div>
     </div>
 </x-app-layout>
