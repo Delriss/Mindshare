@@ -18,7 +18,7 @@ class BlogController extends Controller
 
     public function show(BlogPost $blogPost)
     {
-        $blogPost->load('user');
+        $blogPost->load(['user', 'tags']);
 
         return view('blog')->with([
             'blogPost' => $blogPost,
