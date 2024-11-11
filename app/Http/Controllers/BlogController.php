@@ -16,9 +16,11 @@ class BlogController extends Controller
         ]); // Pass the blog posts to the view
     }
 
-    public function show(BlogPost $blogPost)
+    public function show($slug)
     {
-        $blogPost->load(['user', 'tags']);
+        $blogPost = BlogPost::with(['user', 'tags'])
+                        ->where('slug', $slug)  // Use the slug to find the blog post
+                        ->firstOrFail();  // Return 404 if no blog post is found
 
         return view('blog')->with([
             'blogPost' => $blogPost,

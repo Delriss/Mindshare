@@ -28,6 +28,7 @@ class BlogPost extends Model
 
     protected $fillable = [
         'title',
+        'slug',
         'content',
         'excerpt',
     ];

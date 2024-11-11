@@ -17,5 +17,5 @@ Route::middleware('auth')->group(function () {
 
 Route::controller(BlogController::class) -> middleware(['auth', 'verified']) -> group(function () {
     Route::get('/dashboard', [BlogController::class, 'index'])->name('dashboard');
-    Route::get('/dashboard/{blogPost}', [BlogController::class, 'show'])->name('blog.show');
+    Route::get('/dashboard/{slug}', [BlogController::class, 'show'])->name('blog.show');
 });
