@@ -7,7 +7,7 @@
                 <p class="ml-4 text-sm">Developed by Finley Pettit</p>
             </div>
             <div class="mb-6 md:mb-0 text-gray-500 dark:text-gray-400">
-                <h2 class="text-xl font-bold text-white">Quick Links</h2>
+                <h2 class="text-xl font-bold text-gray-500 dark:text-gray-400">Quick Links</h2>
                 <ul class="flex flex-col">
                     <li>
                         <a href="#" class="hover:text-white">Privacy Policy</a>
