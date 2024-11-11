@@ -21,7 +21,7 @@ class BlogPostFactory extends Factory
         return [
             'title' => fake()->sentence(),
             'user_id' => User::factory(),
-            'content' => fake()->paragraph(5),  
+            'content' => fake()->paragraphs(rand(5, 15), true),  
             'excerpt' => fake()->paragraph(2),
         ];
     }
