@@ -1,3 +1,13 @@
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 <x-app-layout>
     <x-slot name="header">
         <div class="flex items-center">
@@ -5,6 +15,11 @@
                 <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                     {{ __('Blog Snippets') }}
                 </h2>
+            </div>
+
+            <div class="m-1">
+                <button class="bg-blue-500 text-white px-4 py-2 rounded" x-data
+                    @click="$dispatch('open-modal', 'create-post-modal')">Create</button>
             </div>
 
             <form class="max-w-xl">
@@ -70,3 +85,47 @@
     </div>
 
 </x-app-layout>
+
+<!------------------------------------------------------------------------------->
+<!--MODAL SECTION -->
+
+<!-- Create Modal -->
+<x-modal name="create-post-modal" focusable>
+    <form method="POST" action="{{ route('blog.store') }}" class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg mx-auto max-w-lg">
+        @csrf
+        <h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4 text-center">Create New Blog Post</h2>
+        <input type="text" name="title" placeholder="Title" class="w-full mt-2 p-3 border rounded-lg focus:ring focus:ring-blue-200" required>
+        <textarea name="content" placeholder="Content" class="w-full mt-2 p-3 border rounded-lg focus:ring focus:ring-blue-200" required></textarea>
+        <div class="mt-6 flex justify-center">
+            <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600">Create</button>
+            <button type="button" x-on:click="$dispatch('close-modal', 'create-post-modal')" class="ml-4 text-gray-500 hover:text-gray-700">Cancel</button>
+        </div>
+    </form>
+</x-modal>
+
+<!-- Edit Modal -->
+<x-modal name="edit-post-modal" focusable>
+    <form method="POST" action="" id="editForm">
+        @csrf
+        @method('PUT')
+        <h2 class="text-lg font-semibold text-gray-900">Edit Blog Post</h2>
+        <input type="text" name="title" id="editTitle" class="w-full mt-2 p-2 border rounded" required>
+        <textarea name="content" id="editContent" class="w-full mt-2 p-2 border rounded" required></textarea>
+        <div class="mt-4">
+            <button type="submit" class="bg-yellow-500 text-white px-4 py-2 rounded">Update</button>
+            <button type="button" x-on:click="$dispatch('close-modal', 'edit-post-modal')" class="ml-2 text-gray-500">Cancel</button>
+        </div>
+    </form>
+</x-modal>
+
+<!-- Delete Modal -->
+<x-modal name="delete-post-modal" focusable>
+    <h2 class="text-lg font-semibold text-gray-900">Delete Blog Post</h2>
+    <p class="mt-2">Are you sure you want to delete this post? This action cannot be undone.</p>
+    <form method="POST" action="" id="deleteForm" class="mt-4">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded">Delete</button>
+        <button type="button" x-on:click="$dispatch('close-modal', 'delete-post-modal')" class="ml-2 text-gray-500">Cancel</button>
+    </form>
+</x-modal>

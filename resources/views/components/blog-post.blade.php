@@ -26,5 +26,24 @@
                     d="M1 5h12m0 0L9 1m4 4L9 9" />
             </svg>
         </a>
+
+        @if ($blogPost->author_id === auth()->id())
+                <!-- Edit and Delete buttons only for authors -->
+                <button class="bg-yellow-500 text-white px-4 py-2 rounded" 
+                        x-data="{ id: {{ $blogPost->id }}, title: '{{ $blogPost->title }}', content: '{{ $blogPost->content }}' }"
+                        @click="$dispatch('open-modal', 'edit-post-modal');
+                                 document.getElementById('editTitle').value = title;
+                                 document.getElementById('editContent').value = content;
+                                 document.getElementById('editForm').action = `/blogPosts/${id}`;">
+                    Edit
+                </button>
+
+                <button class="bg-red-500 text-white px-4 py-2 rounded" 
+                        x-data="{ id: {{ $blogPost->id }} }"
+                        @click="$dispatch('open-modal', 'delete-post-modal');
+                                 document.getElementById('deleteForm').action = `/blogPosts/${id}`;">
+                    Delete
+                </button>
+            @endif
     </div>
 </div>

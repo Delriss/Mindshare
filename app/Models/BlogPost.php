@@ -31,5 +31,6 @@ class BlogPost extends Model
         'slug',
         'content',
         'excerpt',
+        'user_id',
     ];
 }
