@@ -122,4 +122,28 @@ class BlogController extends Controller
         // Redirect back to dashboard
         return redirect()->route('dashboard');
     }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query'); // Get the search query
+
+        //If the query is empty, redirect back to the dashboard
+        if (!$query) {
+            return redirect()->route('dashboard');
+        }
+
+        // Search for Blog Titles and Tags (assuming tags are stored in a separate table related to blog posts)
+        $blogPosts = BlogPost::where('title', 'like', '%' . $query . '%')
+            ->orWhereHas('tags', function ($tagQuery) use ($query) {
+                $tagQuery->where('title', 'like', '%' . $query . '%');
+            })
+            ->paginate(10);
+
+        // Return results to the view
+        return view('dashboard')->with([
+            'blogPosts' => $blogPosts,
+            'tags' => Tag::all(),
+            'query' => $query,
+        ]);
+    }
 }

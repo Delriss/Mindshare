@@ -21,4 +21,5 @@ Route::controller(BlogController::class) -> middleware(['auth', 'verified']) -> 
     Route::post('/dashboard', [BlogController::class, 'store'])->name('blog.store');
     Route::put('/dashboard/{slug}', [BlogController::class, 'update'])->name('blog.update');
     Route::delete('/dashboard/{slug}', [BlogController::class, 'destroy'])->name('blog.destroy');
+    Route::get('/blog/search', [BlogController::class, 'search'])->name('blog.search');
 });
