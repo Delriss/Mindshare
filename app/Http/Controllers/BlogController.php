@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\BlogPost;
+use App\Models\Tag;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
@@ -24,6 +25,7 @@ class BlogController extends Controller
 
         return view('dashboard')->with([
             'blogPosts' => $blogPosts,
+            'tags' => Tag::all(),
         ]); // Pass the blog posts to the view
     }
 
@@ -55,13 +57,17 @@ class BlogController extends Controller
         }
 
         // Create a new blog post
-        BlogPost::create([
+        $blogPost = BlogPost::create([
             'title' => $validatedData['title'],
             'user_id' => $userID,
             'slug' => $this->generateUniqueSlug($validatedData['title']), // Generate unique slug from title
             'content' => $validatedData['content'],
             'excerpt' => Str::limit($validatedData['content'], 100),
         ]);
+
+        // Attach tags to the blog post
+        $tags = $request->input('tags', []);
+        $blogPost->tags()->sync($tags);
 
         // Redirect back to dashboard
         return redirect()->route('dashboard');

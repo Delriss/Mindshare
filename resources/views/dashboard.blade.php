@@ -91,14 +91,33 @@
 
 <!-- Create Modal -->
 <x-modal name="create-post-modal" focusable>
-    <form method="POST" action="{{ route('blog.store') }}" class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg mx-auto max-w-lg">
+    <form method="POST" action="{{ route('blog.store') }}"
+        class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg mx-auto max-w-lg">
         @csrf
         <h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4 text-center">Create New Blog Post</h2>
-        <input type="text" name="title" placeholder="Title" class="w-full mt-2 p-3 border rounded-lg focus:ring focus:ring-blue-200" required>
-        <textarea name="content" placeholder="Content" class="w-full mt-2 p-3 border rounded-lg focus:ring focus:ring-blue-200" required></textarea>
+        <input type="text" name="title" placeholder="Title"
+            class="w-full mt-2 p-3 border rounded-lg focus:ring focus:ring-blue-200" required>
+        <!-- Tag Selection Dropdown -->
+        <div class="mt-4">
+            <label for="tags" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Tags</label>
+            <div class="max-h-32 overflow-y-auto border rounded-lg p-2">
+            @foreach ($tags as $tag)
+                <div class="flex items-center">
+                <input id="tag-{{ $tag->id }}" type="checkbox" name="tags[]" value="{{ $tag->id }}"
+                    class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                <label for="tag-{{ $tag->id }}" class="ml-2 block text-sm text-gray-900 dark:text-gray-300">
+                    {{ $tag->title }}
+                </label>
+                </div>
+            @endforeach
+            </div>
+        </div>
+        <textarea name="content" placeholder="Content" class="w-full mt-2 p-3 border rounded-lg focus:ring focus:ring-blue-200"
+            required></textarea>
         <div class="mt-6 flex justify-center">
             <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600">Create</button>
-            <button type="button" x-on:click="$dispatch('close-modal', 'create-post-modal')" class="ml-4 text-gray-500 hover:text-gray-700">Cancel</button>
+            <button type="button" x-on:click="$dispatch('close-modal', 'create-post-modal')"
+                class="ml-4 text-gray-500 hover:text-gray-700">Cancel</button>
         </div>
     </form>
 </x-modal>

@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
 
         BlogPost::factory()
             ->count(30)
-            ->has(Tag::factory()->count(3))
+            ->hasTags(3)
             ->hasUser()
             ->create();
     }
