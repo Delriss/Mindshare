@@ -32,10 +32,32 @@
 
                 <!-- Meta Information Section -->
                 <div class="bg-white dark:bg-gray-800 dark:text-white shadow-md rounded-lg p-4">
+                    @if ($blogPost->user_id === auth()->id())
+                        <!-- Edit and Delete buttons only for authors -->
+                        <button class="bg-yellow-500 text-white px-4 py-2 rounded" x-data="{ id: {{ $blogPost->id }}, title: '{{ $blogPost->title }}', content: '{{ $blogPost->content }}' }"
+                            @click="$dispatch('open-modal', 'edit-post-modal');
+                                     document.getElementById('editTitle').value = title;
+                                     document.getElementById('editContent').value = content;
+                                    ">
+                            Edit
+                        </button>
+
+                        <button class="bg-red-500 text-white px-4 py-2 rounded" x-data="{ id: {{ $blogPost->id }} }"
+                            @click="$dispatch('open-modal', 'delete-post-modal');
+                                     document.getElementById('deleteForm').action = `/blogPosts/${id}`;">
+                            Delete
+                        </button>
+
+                        <hr class="w-full border-gray-200 dark:border-gray-700 my-4" />
+                    @endif
                     <div class="flex flex-wrap">
-                        @foreach ($blogPost->tags as $tag)
-                            <x-blog-tag tag="{{ __($tag->title) }}" />
-                        @endforeach
+                        @if ($blogPost->tags->isEmpty())
+                            <p class="text-gray-600 dark:text-gray-400">No tags available</p>
+                        @else
+                            @foreach ($blogPost->tags as $tag)
+                                <x-blog-tag tag="{{ __($tag->title) }}" />
+                            @endforeach
+                        @endif
                     </div>
                     <hr class="w-full border-gray-200 dark:border-gray-700 my-4" />
                     <p><strong>Created:</strong> <span
@@ -58,3 +80,37 @@
         </div>
     </div>
 </x-app-layout>
+
+
+<!-- Edit Modal -->
+<x-modal name="edit-post-modal" focusable>
+    <form method="POST" action="{{ route('blog.update', ['slug' => $blogPost->slug]) }}" id="editForm"
+        class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg mx-auto max-w-lg">
+        @csrf
+        @method('PUT')
+        <h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4 text-center">Edit Blog Post</h2>
+        <input type="text" name="title" id="editTitle"
+            class="w-full mt-2 p-2 border rounded dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200" required>
+        <textarea name="content" id="editContent"
+            class="w-full mt-2 p-3 border rounded-lg focus:ring focus:ring-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200"
+            required></textarea>
+        <div class="mt-4">
+            <button type="submit" class="bg-yellow-500 text-white px-4 py-2 rounded">Update</button>
+            <button type="button" x-on:click="$dispatch('close-modal', 'edit-post-modal')"
+                class="ml-2 text-gray-500 dark:text-gray-400">Cancel</button>
+        </div>
+    </form>
+</x-modal>
+
+<!-- Delete Modal -->
+<x-modal name="delete-post-modal" focusable>
+    <h2 class="text-lg font-semibold text-gray-900">Delete Blog Post</h2>
+    <p class="mt-2">Are you sure you want to delete this post? This action cannot be undone.</p>
+    <form method="POST" action="" id="deleteForm" class="mt-4">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded">Delete</button>
+        <button type="button" x-on:click="$dispatch('close-modal', 'delete-post-modal')"
+            class="ml-2 text-gray-500">Cancel</button>
+    </form>
+</x-modal>

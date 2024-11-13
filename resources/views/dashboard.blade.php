@@ -102,30 +102,3 @@
         </div>
     </form>
 </x-modal>
-
-<!-- Edit Modal -->
-<x-modal name="edit-post-modal" focusable>
-    <form method="POST" action="" id="editForm">
-        @csrf
-        @method('PUT')
-        <h2 class="text-lg font-semibold text-gray-900">Edit Blog Post</h2>
-        <input type="text" name="title" id="editTitle" class="w-full mt-2 p-2 border rounded" required>
-        <textarea name="content" id="editContent" class="w-full mt-2 p-2 border rounded" required></textarea>
-        <div class="mt-4">
-            <button type="submit" class="bg-yellow-500 text-white px-4 py-2 rounded">Update</button>
-            <button type="button" x-on:click="$dispatch('close-modal', 'edit-post-modal')" class="ml-2 text-gray-500">Cancel</button>
-        </div>
-    </form>
-</x-modal>
-
-<!-- Delete Modal -->
-<x-modal name="delete-post-modal" focusable>
-    <h2 class="text-lg font-semibold text-gray-900">Delete Blog Post</h2>
-    <p class="mt-2">Are you sure you want to delete this post? This action cannot be undone.</p>
-    <form method="POST" action="" id="deleteForm" class="mt-4">
-        @csrf
-        @method('DELETE')
-        <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded">Delete</button>
-        <button type="button" x-on:click="$dispatch('close-modal', 'delete-post-modal')" class="ml-2 text-gray-500">Cancel</button>
-    </form>
-</x-modal>

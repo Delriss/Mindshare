@@ -19,4 +19,5 @@ Route::controller(BlogController::class) -> middleware(['auth', 'verified']) -> 
     Route::get('/dashboard', [BlogController::class, 'index'])->name('dashboard');
     Route::get('/dashboard/{slug}', [BlogController::class, 'show'])->name('blog.show');
     Route::post('/dashboard', [BlogController::class, 'store'])->name('blog.store');
+    Route::put('/dashboard/{slug}', [BlogController::class, 'update'])->name('blog.update');
 });

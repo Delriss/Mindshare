@@ -63,6 +63,35 @@ class BlogController extends Controller
         ]);
 
         // Redirect back to dashboard
-        return redirect()->route('dashboard');
+        return redirect()->route('dashboard/');
+    }
+
+    public function update(Request $request, $slug)
+    {
+        $userID = Auth::user()->id;
+
+        //Make sure the Data meets DB requirements
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+        ]);
+
+        // Check if user is authenticated
+        if (!$userID) {
+            return redirect()->route('login')->with('error', 'You must be logged in to create a blog post.');
+        }
+
+        // Find the blog post
+        $blogPost = BlogPost::where('slug', $slug)->firstOrFail();
+
+        // Update the blog post
+        $blogPost->update([
+            'title' => $validatedData['title'],
+            'content' => $validatedData['content'],
+            'excerpt' => Str::limit($validatedData['content'], 100),
+        ]);
+
+        // Redirect back to dashboard
+        return redirect()->route('blog.show', $blogPost->slug);
     }
 }
