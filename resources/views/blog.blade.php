@@ -43,8 +43,7 @@
                         </button>
 
                         <button class="bg-red-500 text-white px-4 py-2 rounded" x-data="{ id: {{ $blogPost->id }} }"
-                            @click="$dispatch('open-modal', 'delete-post-modal');
-                                     document.getElementById('deleteForm').action = `/blogPosts/${id}`;">
+                            @click="$dispatch('open-modal', 'delete-post-modal');">
                             Delete
                         </button>
 
@@ -104,13 +103,17 @@
 
 <!-- Delete Modal -->
 <x-modal name="delete-post-modal" focusable>
-    <h2 class="text-lg font-semibold text-gray-900">Delete Blog Post</h2>
-    <p class="mt-2">Are you sure you want to delete this post? This action cannot be undone.</p>
-    <form method="POST" action="" id="deleteForm" class="mt-4">
+    <form method="POST" action="{{ route('blog.destroy', ['slug' => $blogPost->slug]) }}" id="deleteForm"
+        class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg mx-auto max-w-lg">
         @csrf
         @method('DELETE')
-        <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded">Delete</button>
-        <button type="button" x-on:click="$dispatch('close-modal', 'delete-post-modal')"
-            class="ml-2 text-gray-500">Cancel</button>
+        <h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4 text-center">Delete Blog Post</h2>
+        <p class="mt-2 text-gray-600 dark:text-gray-400">Are you sure you want to delete this post? This action cannot
+            be undone.</p>
+        <div class="mt-4 flex justify-center">
+            <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded">Delete</button>
+            <button type="button" x-on:click="$dispatch('close-modal', 'delete-post-modal')"
+                class="ml-2 text-gray-500 dark:text-gray-400">Cancel</button>
+        </div>
     </form>
 </x-modal>

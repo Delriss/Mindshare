@@ -40,6 +40,7 @@ class BlogController extends Controller
 
     public function store(Request $request)
     {
+        //Get the user ID
         $userID = Auth::user()->id;
 
         //Make sure the Data meets DB requirements
@@ -63,11 +64,12 @@ class BlogController extends Controller
         ]);
 
         // Redirect back to dashboard
-        return redirect()->route('dashboard/');
+        return redirect()->route('dashboard');
     }
 
     public function update(Request $request, $slug)
     {
+        //Get the user ID
         $userID = Auth::user()->id;
 
         //Make sure the Data meets DB requirements
@@ -93,5 +95,25 @@ class BlogController extends Controller
 
         // Redirect back to dashboard
         return redirect()->route('blog.show', $blogPost->slug);
+    }
+
+    public function destroy($slug)
+    {
+        //Get the user ID
+        $userID = Auth::user()->id;
+
+        // Check if user is authenticated
+        if (!$userID) {
+            return redirect()->route('login')->with('error', 'You must be logged in to create a blog post.');
+        }
+
+        // Find the blog post
+        $blogPost = BlogPost::where('slug', $slug)->firstOrFail();
+
+        // Delete the blog post
+        $blogPost->delete();
+
+        // Redirect back to dashboard
+        return redirect()->route('dashboard');
     }
 }
