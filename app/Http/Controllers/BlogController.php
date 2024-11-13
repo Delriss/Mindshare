@@ -13,20 +13,21 @@ class BlogController extends Controller
 {
     private function generateUniqueSlug($title)
     {
-        $slug = Str::slug($title);
-        $count = BlogPost::where('slug', 'LIKE', "{$slug}%")->count();
+        $slug = Str::slug($title); // Generate a slug from the title
+        $count = BlogPost::where('slug', 'LIKE', "{$slug}%")->count(); // Count the number of blog posts with the same slug
 
-        return $count ? "{$slug}-{$count}" : $slug;
+        return $count ? "{$slug}-{$count}" : $slug; // Append a number to the slug if it's not unique
     }
 
     public function index()
     {
-        $blogPosts = BlogPost::with(['user', 'tags'])->paginate(10);
+        $blogPosts = BlogPost::with(['user', 'tags'])->paginate(10); // Get all blog posts with user and tags relationships and paginate
 
+        // Pass the blog posts to the view
         return view('dashboard')->with([
             'blogPosts' => $blogPosts,
             'tags' => Tag::all(),
-        ]); // Pass the blog posts to the view
+        ]); 
     }
 
     public function show($slug)
@@ -35,9 +36,10 @@ class BlogController extends Controller
             ->where('slug', $slug)  // Use the slug to find the blog post
             ->firstOrFail();  // Return 404 if no blog post is found
 
+            // Pass the blog posts to the view
         return view('blog')->with([
             'blogPost' => $blogPost,
-        ]); // Pass the blog posts to the view
+        ]); 
     }
 
     public function store(Request $request)

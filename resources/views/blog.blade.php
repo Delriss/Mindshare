@@ -1,16 +1,25 @@
 <x-app-layout>
+
+    <!-- Header Section -->
     <x-slot name="header">
         <div class="flex items-center justify-between">
+
+            <!-- Back Button -->
             <button onclick="window.history.back()"
                 class="text-gray-800 dark:text-gray-200 font-semibold text-xl py-2 px-4 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
                 ← Back
             </button>
+
+            <!-- Blog Post Title -->
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 {{ __($blogPost->title) }}
             </h2>
+
         </div>
     </x-slot>
+    <!-- End Header Section -->
 
+    <!-- Display Blog Post -->
     <div class="container mx-auto mt-5 p-3">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
 
@@ -22,18 +31,21 @@
                     <h2 class="text-xl font-semibold">Author</h2>
                     <div class="flex items-center mt-2">
                         <div class="w-12 h-12 bg-gray-300 dark:bg-gray-600 rounded-full"></div>
+
                         <!-- Profile picture placeholder -->
                         <div class="ml-3">
                             <p class="font-bold">{{ $blogPost->user->name }}</p>
                             <p class="text-sm text-gray-600 dark:text-gray-400">Bio or short description...</p>
                         </div>
+
                     </div>
                 </div>
 
                 <!-- Meta Information Section -->
                 <div class="bg-white dark:bg-gray-800 dark:text-white shadow-md rounded-lg p-4">
-                    @if ($blogPost->user_id === auth()->id())
-                        <!-- Edit and Delete buttons only for authors -->
+                    @if ($blogPost->user_id === auth()->id()) <!-- Check if the user is the author of the post -->
+
+                        <!-- Edit button -->
                         <button class="bg-yellow-500 text-white px-4 py-2 rounded" x-data="{ id: {{ $blogPost->id }}, title: '{{ $blogPost->title }}', content: '{{ $blogPost->content }}' }"
                             @click="$dispatch('open-modal', 'edit-post-modal');
                                      document.getElementById('editTitle').value = title;
@@ -42,6 +54,7 @@
                             Edit
                         </button>
 
+                        <!-- Delete button -->
                         <button class="bg-red-500 text-white px-4 py-2 rounded" x-data="{ id: {{ $blogPost->id }} }"
                             @click="$dispatch('open-modal', 'delete-post-modal');">
                             Delete
@@ -49,8 +62,10 @@
 
                         <hr class="w-full border-gray-200 dark:border-gray-700 my-4" />
                     @endif
+
+                    <!-- Tags Section -->
                     <div class="flex flex-wrap">
-                        @if ($blogPost->tags->isEmpty())
+                        @if ($blogPost->tags->isEmpty()) <!-- Check if the post has any tags -->
                             <p class="text-gray-600 dark:text-gray-400">No tags available</p>
                         @else
                             @foreach ($blogPost->tags as $tag)
@@ -58,13 +73,17 @@
                             @endforeach
                         @endif
                     </div>
-                    <hr class="w-full border-gray-200 dark:border-gray-700 my-4" />
+
+                    <hr class="w-full border-gray-200 dark:border-gray-700 my-4" /> 
+
+                    <!-- Date/Time Information -->
                     <p><strong>Created:</strong> <span
                             class="text-gray-600 dark:text-gray-400">{{ $blogPost->created_at->diffForHumans() }}</span>
                     </p>
                     <p><strong>Updated:</strong> <span
                             class="text-gray-600 dark:text-gray-400">{{ $blogPost->updated_at->diffForHumans() }}</span>
                     </p>
+
                 </div>
             </div>
 
@@ -72,7 +91,7 @@
             <div class="md:order-1 md:col-span-2 bg-white dark:bg-gray-800 dark:text-white shadow-md rounded-lg p-4">
                 <h1 class="text-2xl font-bold mb-4">{{ $blogPost->title }}</h1>
                 <div class="bg-gray-300 dark:bg-gray-900 p-2 rounded-lg shadow-md space-y-4">
-                    {!! nl2br(e($blogPost->content)) !!}
+                    {!! nl2br(e($blogPost->content)) !!} <!-- Display the blog post content -->
                 </div>
             </div>
 

@@ -11,11 +11,13 @@ class Tag extends Model
 {
     use HasFactory;
 
+    // Define the relationship between Tag and BlogPost
     public function blogPosts() : BelongsToMany
     {
         return $this->belongsToMany(BlogPost::class);  
     }
 
+    // Define the fillable fields
     protected $fillable = [
         'id',
         'title'

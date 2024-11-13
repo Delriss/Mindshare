@@ -29,7 +29,7 @@
             </div>
             <script>
                 if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                    // Add dark class to the document
+                    // Set the color-theme to dark as default
                     document.documentElement.classList.add('dark');
                 }
             </script>

@@ -1,17 +1,28 @@
 <x-app-layout>
+
+    <!-- Header/Hero Section -->
     <x-slot name="header">
-        <img src="{{ asset('images/brain.png') }}" class="mx-auto hover:scale-105 transition-transform duration-200 w-250 h-250">
+
+        <!-- Hero Image and Text-->
+        <img src="{{ asset('images/brain.png') }}" class="mx-auto hover:scale-105 transition-transform duration-200 w-250 h-250"> 
         <h2 class="mb-4 text-4xl font-bold tracking-tight leading-none md:text-5xl lg:text-6xl dark:text-white hover:scale-105 transition-transform duration-200 max-w-fit mx-auto text-center">
             {{ __('Welcome to Mindshare!') }}
         </h2>
         <p class="mt-8 text-pretty text-lg font-medium text-gray-500 sm:text-xl/8 text-center">Your hub for knowledge and inspiration.</p>
+
+        <!-- Header Call to Action Buttons -->
         <div class="mt-10 flex items-center justify-center gap-x-6">
             <a href="{{ route('register') }}" class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-lg font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Get started</a>
             <a href="#" class="text-lg font-semibold text-gray-900 dark:text-white">Learn more <span aria-hidden="true">→</span></a>
         </div>
-    </x-slot>
 
+    </x-slot>
+    <!-- End Header Section -->
+
+    <!-- Main Content Section -->
     <div class="container mx-auto py-12 space-y-10 flex flex-col items-center text-center">
+
+        <!-- Individual Features Section -->
         <div class="block max-w-3xl p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
             <h3 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ __('Welcome to Mindshare') }}</h3>
             <p class="font-normal text-gray-700 dark:text-gray-400">{{ __('Your hub for knowledge and inspiration.') }}</p>
@@ -28,5 +39,6 @@
             <h3 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ __('Join the MindShare Community') }}</h3>
             <p class="font-normal text-gray-700 dark:text-gray-400">{{ __('Join us in shaping the future of knowledge sharing. Become a part of the MindShare community today!') }}</p>
         </div>
+        
     </div>
 </x-app-layout>

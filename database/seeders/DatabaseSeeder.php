@@ -15,14 +15,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
+        // Create Default User
         User::factory()
             ->create([
                 'name' => 'Test User',
                 'email' => 'test@example.com',
             ]);
 
+        // Create 30 Blogs with 3 Tags
         BlogPost::factory()
             ->count(30)
             ->hasTags(3)
